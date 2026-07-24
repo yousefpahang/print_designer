@@ -209,29 +209,38 @@ background-image: url('{{frappe.get_url()}}{{value}}');
     {% set renderBody =  render_element(bodyElement[0].childrens, send_to_jinja) %}
     {% set renderFooter = render_element(footerElement[0].childrens, send_to_jinja) %}
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-        {% if settings.printHeaderFonts %}
-    {% set printHeaderFonts = getFontStyles(settings.printHeaderFonts) %}
+    {#
+        Locally bundled fonts (e.g. Noto Sans Arabic) are filtered out here so
+        they never generate a Google Fonts CDN request - their @font-face
+        rules are always included below via local_fonts.bundle.css instead.
+    #}
+        {% set headerFontsData = filter_local_fonts(settings.printHeaderFonts) %}
+        {% if headerFontsData %}
+    {% set printHeaderFonts = getFontStyles(headerFontsData) %}
         <link
             href="https://fonts.googleapis.com/css2?family={{printHeaderFonts}}"
             rel="stylesheet"
             id="headerFontsLinkTag"
         />
     {%endif%}
-        {% if settings.printFooterFonts %}
-    {% set printFooterFonts = getFontStyles(settings.printFooterFonts) %}
+        {% set footerFontsData = filter_local_fonts(settings.printFooterFonts) %}
+        {% if footerFontsData %}
+    {% set printFooterFonts = getFontStyles(footerFontsData) %}
         <link
             href="https://fonts.googleapis.com/css2?family={{printFooterFonts}}"
             rel="stylesheet"
             id="footerFontsLinkTag"
             />
     {%endif%}
-        {% if settings.printBodyFonts %}
-    {% set printBodyFonts = getFontStyles(settings.printBodyFonts) %}
+        {% set bodyFontsData = filter_local_fonts(settings.printBodyFonts) %}
+        {% if bodyFontsData %}
+    {% set printBodyFonts = getFontStyles(bodyFontsData) %}
         <link
             href="https://fonts.googleapis.com/css2?family={{printBodyFonts}}"
             rel="stylesheet"
         />
     {%endif%}
+    {{ include_style('local_fonts.bundle.css') }}
     <div id="__print_designer">
         <div id="header-html">
             <div style="position: relative; top:0px; left: 0px; width: 100%; height:{{ settings.page.headerHeightWithMargin }}px;">{% if headerElement %}{{ renderHeader }}{%endif%}</div>

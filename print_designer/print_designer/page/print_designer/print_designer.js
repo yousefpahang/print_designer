@@ -177,6 +177,10 @@ const load_print_designer = async (wrapper) => {
 	if (route.length > 1 && route[1].length) {
 		if (is_print_format) {
 			await set_current_doc(route[1]);
+			// @font-face rules for locally bundled fonts (e.g. Noto Sans Arabic) -
+			// loaded up front so the editor/preview canvas can render them
+			// immediately, independent of print_designer.bundle.js.
+			await frappe.require("local_fonts.bundle.css");
 			await frappe.require("print_designer.bundle.js");
 			frappe.print_designer = new frappe.ui.PrintDesigner({
 				wrapper: $parent,

@@ -1288,8 +1288,12 @@ export const createPropertiesPanel = () => {
 							!MainStore.frappeControls["fontWeight"]
 						)
 							return false;
+						// unregistered/typed font families have no registry entry - treat
+						// them as having no italic variant instead of crashing here.
+						let fontRegistryEntry = MainStore.fonts[MainStore.getCurrentStyle("fontFamily")];
 						let isItalicAvaiable =
-							MainStore.fonts[MainStore.getCurrentStyle("fontFamily")]?.[1].indexOf(
+							!!fontRegistryEntry &&
+							fontRegistryEntry.italic.indexOf(
 								parseInt(MainStore.getCurrentStyle("fontWeight"))
 							) != -1;
 						if (

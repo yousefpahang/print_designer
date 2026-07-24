@@ -398,6 +398,82 @@ export const GoogleFonts = {
 	],
 };
 
+/**
+ * Fonts bundled with Print Designer itself (self-hosted, offline-safe).
+ *
+ * Unlike `GoogleFonts`, each entry is an object (not a `[weights, italics]`
+ * tuple) so it can carry the extra metadata local fonts need: where their
+ * `@font-face` rules live, and that they must never trigger a Google Fonts
+ * CDN request.
+ *
+ * `stylesheet` is the *.bundle.css logical name (see FontRegistry.js loaders
+ * in App.vue / print_designer.js / the print jinja macros) that declares the
+ * @font-face rules for this family. See README.md "Adding a self-hosted
+ * font" for the full checklist when adding another entry here.
+ */
+export const LocalFonts = {
+	"Noto Sans Arabic": {
+		weight: [400, 500, 600, 700],
+		italic: [],
+		source: "local",
+		stylesheet: "local_fonts.bundle.css",
+	},
+	"Noto Kufi Arabic": {
+		weight: [400, 500, 600, 700],
+		italic: [],
+		source: "local",
+		stylesheet: "local_fonts.bundle.css",
+	},
+	"Noto Naskh Arabic": {
+		weight: [400, 500, 600, 700],
+		italic: [],
+		source: "local",
+		stylesheet: "local_fonts.bundle.css",
+	},
+	Cairo: {
+		weight: [400, 500, 600, 700],
+		italic: [],
+		source: "local",
+		stylesheet: "local_fonts.bundle.css",
+	},
+	Amiri: {
+		weight: [400, 700],
+		italic: [],
+		source: "local",
+		stylesheet: "local_fonts.bundle.css",
+	},
+	Vazirmatn: {
+		weight: [400, 500, 600, 700],
+		italic: [],
+		source: "local",
+		stylesheet: "local_fonts.bundle.css",
+	},
+	Tajawal: {
+		weight: [400, 500, 700],
+		italic: [],
+		source: "local",
+		stylesheet: "local_fonts.bundle.css",
+	},
+};
+
+/**
+ * Generic font registry: the single source of truth for the font-family
+ * autocomplete and the weight/italic pickers in the Properties Panel.
+ *
+ * Every entry is normalized to `{ weight: number[], italic: number[], source }`
+ * regardless of whether it originates from Google Fonts (`source: "google"`)
+ * or a locally bundled font (`source: "local"`). `GoogleFonts` is kept as-is
+ * above (and still exported) purely for backward compatibility with any code
+ * that imports it directly; new code should read from `FontRegistry`.
+ */
+export const FontRegistry = Object.fromEntries([
+	...Object.entries(GoogleFonts).map(([name, [weight, italic]]) => [
+		name,
+		{ weight, italic, source: "google" },
+	]),
+	...Object.entries(LocalFonts).map(([name, meta]) => [name, meta]),
+]);
+
 export const barcodeFormats = [
 	{ label: "QR Code", value: "qrcode" },
 	{ label: "Code39", value: "code39" },

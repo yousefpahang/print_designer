@@ -1,26 +1,40 @@
 {% macro getFontStyles(fonts) -%}{%for key, value in fonts.items()%}{{key ~ ':ital,wght@'}}{%for index, size in enumerate(value.weight)%}{%if index > 0%};{%endif%}0,{{size}}{%endfor%}{%for index, size in enumerate(value.italic)%}{%if index > 0 or value.weight|length != 0 %};{%endif%}1,{{size}}{%endfor%}{% if not loop.last %}{{'&display=swap&family='}}{%endif%}{%endfor%}{%- endmacro %}
 
 {% macro render_google_fonts(settings) %}
+    {#
+        Locally bundled fonts (e.g. Noto Sans Arabic) are stripped out of
+        printHeaderFonts/printBodyFonts/printFooterFonts here via
+        filter_local_fonts() so they never generate a Google Fonts CDN
+        request. Their @font-face rules are always included below via
+        local_fonts.bundle.css instead - this covers the body page as well
+        as the header/footer pages (which relay this macro's output through
+        headerFontsLinkTag/footerFontsLinkTag, see print_designer/pdf.py and
+        header_footer.html / header_footer_old.html).
+    #}
+    {% set headerFonts = filter_local_fonts(settings.printHeaderFonts) %}
+    {% set bodyFonts = filter_local_fonts(settings.printBodyFonts) %}
+    {% set footerFonts = filter_local_fonts(settings.printFooterFonts) %}
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    {% if settings.printHeaderFonts %}
+    {% if headerFonts %}
         <link
-            href="https://fonts.googleapis.com/css2?family={{getFontStyles(settings.printHeaderFonts)}}"
+            href="https://fonts.googleapis.com/css2?family={{getFontStyles(headerFonts)}}"
             rel="stylesheet"
             id="headerFontsLinkTag"
         />
     {%endif%}
-    {% if settings.printBodyFonts %}
+    {% if bodyFonts %}
         <link
-            href="https://fonts.googleapis.com/css2?family={{getFontStyles(settings.printBodyFonts)}}"
+            href="https://fonts.googleapis.com/css2?family={{getFontStyles(bodyFonts)}}"
             rel="stylesheet"
             id="bodyFontsLinkTag"
         />
     {%endif%}
-    {% if settings.printFooterFonts %}
+    {% if footerFonts %}
         <link
-            href="https://fonts.googleapis.com/css2?family={{getFontStyles(settings.printFooterFonts)}}"
+            href="https://fonts.googleapis.com/css2?family={{getFontStyles(footerFonts)}}"
             rel="stylesheet"
             id="footerFontsLinkTag"
         />
     {%endif%}
+    {{ include_style('local_fonts.bundle.css') }}
 {% endmacro %}

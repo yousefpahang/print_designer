@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { markRaw } from "vue";
 import { useChangeValueUnit } from "../composables/ChangeValueUnit";
-import { GoogleFonts, barcodeFormats } from "../defaultObjects";
+import { FontRegistry, barcodeFormats } from "../defaultObjects";
 import { globalStyles } from "../globalStyles";
 import { pageSizes } from "../pageSizes";
 export const useMainStore = defineStore("MainStore", {
@@ -31,7 +31,7 @@ export const useMainStore = defineStore("MainStore", {
 		isHeaderFooterAuto: true,
 		isPreviewMode: false,
 		barcodeFormats,
-		fonts: GoogleFonts,
+		fonts: FontRegistry,
 		currentFonts: ["Inter"],
 		printHeaderFonts: null,
 		printBodyFonts: null,
@@ -369,21 +369,7 @@ export const useMainStore = defineStore("MainStore", {
 			return Object.keys(state.fonts);
 		},
 		getGoogleFontWeights: (state) => () => {
-			let fontName = state.getCurrentStyle("fontFamily");
-			if (!fontName) {
-				return [
-					{ label: "Thin", value: 100 },
-					{ label: "Extra Light", value: 200 },
-					{ label: "Light", value: 300 },
-					{ label: "Regular", value: 400 },
-					{ label: "Medium", value: 500 },
-					{ label: "Semi Bold", value: 600 },
-					{ label: "Bold", value: 700 },
-					{ label: "Extra Bold", value: 800 },
-					{ label: "Black", value: 900 },
-				];
-			}
-			return [
+			const allWeights = [
 				{ label: "Thin", value: 100 },
 				{ label: "Extra Light", value: 200 },
 				{ label: "Light", value: 300 },
@@ -393,7 +379,16 @@ export const useMainStore = defineStore("MainStore", {
 				{ label: "Bold", value: 700 },
 				{ label: "Extra Bold", value: 800 },
 				{ label: "Black", value: 900 },
-			].filter((weight) => state.fonts[fontName][0].indexOf(weight.value) != -1);
+			];
+			let fontName = state.getCurrentStyle("fontFamily");
+			let registryEntry = fontName && state.fonts[fontName];
+			// Unregistered/typed font family (or no family selected yet): no weight
+			// metadata exists for it, so fall back to the full list instead of
+			// crashing - this used to throw on `state.fonts[fontName][0]`.
+			if (!registryEntry) {
+				return allWeights;
+			}
+			return allWeights.filter((weight) => registryEntry.weight.indexOf(weight.value) != -1);
 		},
 		getGlobalStyleObject: (state) => {
 			let globalStyleName;

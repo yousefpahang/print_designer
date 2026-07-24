@@ -1,0 +1,290 @@
+/**
+ * Locally bundled (self-hosted) fonts for Print Designer.
+ *
+ * These are @font-face declarations ONLY - no selector here sets a global
+ * font-family. Elements opt in explicitly by setting their fontFamily style
+ * to one of the families declared below (see defaultObjects.js: LocalFonts).
+ *
+ * This stylesheet is a Frappe bundle asset (naming convention: *.bundle.css)
+ * and is picked up automatically by `bench build`. It is loaded:
+ *   - in the Designer editor/preview via frappe.require("local_fonts.bundle.css")
+ *     (print_designer/page/print_designer/print_designer.js)
+ *   - in generated print HTML / PDF output via include_style('local_fonts.bundle.css')
+ *     (jinja macros: render_google_fonts.html, old_print_format.html,
+ *     header_footer.html, header_footer_old.html)
+ *
+ * Font files live under public/fonts/<family-slug>/ and are referenced here
+ * with absolute /assets/print_designer/... URLs so the reference survives
+ * bundling regardless of where the compiled CSS itself ends up on disk.
+ *
+ * ---------------------------------------------------------------------------
+ * Noto Sans Arabic
+ * Source: Noto Project (https://github.com/notofonts/arabic)
+ * License: SIL Open Font License 1.1 - see
+ *   public/fonts/noto-sans-arabic/OFL.txt
+ * ---------------------------------------------------------------------------
+ */
+@font-face {
+	font-family: "Noto Sans Arabic";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/noto-sans-arabic/NotoSansArabic-Regular.woff2")
+		format("woff2");
+}
+
+@font-face {
+	font-family: "Noto Sans Arabic";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/noto-sans-arabic/NotoSansArabic-Medium.woff2")
+		format("woff2");
+}
+
+@font-face {
+	font-family: "Noto Sans Arabic";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/noto-sans-arabic/NotoSansArabic-SemiBold.woff2")
+		format("woff2");
+}
+
+@font-face {
+	font-family: "Noto Sans Arabic";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/noto-sans-arabic/NotoSansArabic-Bold.woff2")
+		format("woff2");
+}
+
+/**
+ * ---------------------------------------------------------------------------
+ * Noto Kufi Arabic
+ * Source: Noto Project (https://github.com/notofonts/kufi-arabic)
+ * License: SIL Open Font License 1.1 - see
+ *   public/fonts/noto-kufi-arabic/OFL.txt
+ * ---------------------------------------------------------------------------
+ */
+@font-face {
+	font-family: "Noto Kufi Arabic";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/noto-kufi-arabic/NotoKufiArabic-Regular.woff2")
+		format("woff2");
+}
+
+@font-face {
+	font-family: "Noto Kufi Arabic";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/noto-kufi-arabic/NotoKufiArabic-Medium.woff2")
+		format("woff2");
+}
+
+@font-face {
+	font-family: "Noto Kufi Arabic";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/noto-kufi-arabic/NotoKufiArabic-SemiBold.woff2")
+		format("woff2");
+}
+
+@font-face {
+	font-family: "Noto Kufi Arabic";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/noto-kufi-arabic/NotoKufiArabic-Bold.woff2")
+		format("woff2");
+}
+
+/**
+ * ---------------------------------------------------------------------------
+ * Noto Naskh Arabic
+ * Source: Noto Project (https://github.com/notofonts/naskh-arabic)
+ * License: SIL Open Font License 1.1 - see
+ *   public/fonts/noto-naskh-arabic/OFL.txt
+ * ---------------------------------------------------------------------------
+ */
+@font-face {
+	font-family: "Noto Naskh Arabic";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/noto-naskh-arabic/NotoNaskhArabic-Regular.woff2")
+		format("woff2");
+}
+
+@font-face {
+	font-family: "Noto Naskh Arabic";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/noto-naskh-arabic/NotoNaskhArabic-Medium.woff2")
+		format("woff2");
+}
+
+@font-face {
+	font-family: "Noto Naskh Arabic";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/noto-naskh-arabic/NotoNaskhArabic-SemiBold.woff2")
+		format("woff2");
+}
+
+@font-face {
+	font-family: "Noto Naskh Arabic";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/noto-naskh-arabic/NotoNaskhArabic-Bold.woff2")
+		format("woff2");
+}
+
+/**
+ * ---------------------------------------------------------------------------
+ * Cairo
+ * Source: Cairo Project (https://github.com/Gue3bara/Cairo)
+ * License: SIL Open Font License 1.1 - see
+ *   public/fonts/cairo/OFL.txt
+ * ---------------------------------------------------------------------------
+ */
+@font-face {
+	font-family: "Cairo";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/cairo/Cairo-Regular.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Cairo";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/cairo/Cairo-Medium.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Cairo";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/cairo/Cairo-SemiBold.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Cairo";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/cairo/Cairo-Bold.woff2") format("woff2");
+}
+
+/**
+ * ---------------------------------------------------------------------------
+ * Amiri
+ * Source: The Amiri Project (https://github.com/aliftype/amiri)
+ * License: SIL Open Font License 1.1 - see
+ *   public/fonts/amiri/OFL.txt
+ * Traditional Naskh calligraphic style - only Regular/Bold are published
+ * (no Medium/SemiBold in the upstream family).
+ * ---------------------------------------------------------------------------
+ */
+@font-face {
+	font-family: "Amiri";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/amiri/Amiri-Regular.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Amiri";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/amiri/Amiri-Bold.woff2") format("woff2");
+}
+
+/**
+ * ---------------------------------------------------------------------------
+ * Vazirmatn
+ * Source: Vazirmatn Project (https://github.com/rastikerdar/vazirmatn)
+ * License: SIL Open Font License 1.1 - see
+ *   public/fonts/vazirmatn/OFL.txt
+ * Persian (Farsi) + Arabic script coverage.
+ * ---------------------------------------------------------------------------
+ */
+@font-face {
+	font-family: "Vazirmatn";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/vazirmatn/Vazirmatn-Regular.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Vazirmatn";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/vazirmatn/Vazirmatn-Medium.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Vazirmatn";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/vazirmatn/Vazirmatn-SemiBold.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Vazirmatn";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/vazirmatn/Vazirmatn-Bold.woff2") format("woff2");
+}
+
+/**
+ * ---------------------------------------------------------------------------
+ * Tajawal
+ * Source: Boutros International, via Google Fonts
+ *   (https://fonts.google.com/specimen/Tajawal)
+ * License: SIL Open Font License 1.1 - see
+ *   public/fonts/tajawal/OFL.txt
+ * Upstream family has no 600 weight - only 400/500/700 are bundled here.
+ * ---------------------------------------------------------------------------
+ */
+@font-face {
+	font-family: "Tajawal";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/tajawal/Tajawal-Regular.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Tajawal";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/tajawal/Tajawal-Medium.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Tajawal";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("/assets/print_designer/fonts/tajawal/Tajawal-Bold.woff2") format("woff2");
+}

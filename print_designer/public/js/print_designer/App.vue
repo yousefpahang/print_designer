@@ -1,7 +1,7 @@
 <template>
 	<link rel="preconnect" href="https://fonts.gstatic.com" />
 	<link
-		v-for="currentFont in MainStore.currentFonts"
+		v-for="currentFont in googleCurrentFonts"
 		:key="currentFont"
 		:href="`https://fonts.googleapis.com/css2?family=${currentFont}:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap`"
 		rel="stylesheet"
@@ -61,6 +61,15 @@ const props = defineProps({
 	},
 });
 const MainStore = useMainStore();
+
+// Only fonts backed by Google Fonts should ever hit fonts.googleapis.com.
+// Locally bundled fonts (source: "local", e.g. Noto Sans Arabic) load their
+// @font-face rules from local_fonts.bundle.css instead - see
+// print_designer.js's frappe.require() call. Unregistered/typed font names
+// have no registry entry and keep the previous (CDN) behaviour.
+const googleCurrentFonts = computed(() =>
+	MainStore.currentFonts.filter((font) => MainStore.fonts[font]?.source !== "local")
+);
 
 const toolbarClasses = computed(() => {
 	return [

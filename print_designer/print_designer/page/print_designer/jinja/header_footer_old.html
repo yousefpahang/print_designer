@@ -126,6 +126,9 @@
 		{% else %}
 		{% if footerFonts %}{{ footerFonts }}{%endif%}
 		{% endif %}
+		{# explicit, not relying on `styles` relay above, so locally bundled
+		   fonts (e.g. Noto Sans Arabic) always render in headers/footers #}
+		{{ include_style('local_fonts.bundle.css') }}
 	</head>
 	<body onload="subst()">
 		{% for tag in content -%}
